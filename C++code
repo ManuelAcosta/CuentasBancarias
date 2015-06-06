@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+
+	int n=0;
+	string aux;
+	multimap<string, int> cuentasBancarias;
+	multimap<string,int>::iterator it;
+	string auxControl;
+	string auxBanco;
+	string auxCliente1;
+	string auxCliente2;
+	string auxCliente3;
+	string auxCliente4;
+
+	cin>>n;
+	if(n>=1)
+	{
+		/*Lee los datos*/
+		for (int i=0; i<n;i++)
+		{
+			cin>>auxControl>>auxBanco>>auxCliente1>>auxCliente2>>auxCliente3>>auxCliente4;
+			aux=auxControl+" "+auxBanco+" "+auxCliente1+" "+auxCliente2+" "+auxCliente3+" "+auxCliente4;
+			cuentasBancarias.insert(pair<string,int>(aux,1));
+		}
+
+		/*Itera por el multiset contando las apariciones de objetos y eliminando estas*/
+		for(it=cuentasBancarias.begin(); it!=cuentasBancarias.end(); ++it)
+		{
+			int auxNumero=0;
+			auxNumero=cuentasBancarias.count((*it).first);
+			(*it).second=auxNumero;
+			cuentasBancarias.erase(++(cuentasBancarias.lower_bound((*it).first)) ,cuentasBancarias.upper_bound((*it).first));
+		}
+	
+		/* Imprime el multiset*/
+		for (it=cuentasBancarias.begin(); it!=cuentasBancarias.end(); ++it)
+		{
+			cout << (*it).first << " " << (*it).second << "\n";
+		}
+	}
+	return 0;	
+}
